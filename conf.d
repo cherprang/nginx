@@ -1,14 +1,30 @@
 server {
-    listen       80;
-    server_name  localhost;
-
-    #charset koi8-r;
-    #access_log  /var/log/nginx/host.access.log  main;
+    listen 80;
+    listen [::]:80;
+    
+    # listen 443 ssl http2;
+	# listen [::]:443 ssl http2;
+    
+    server_name _;
+    
+	# SSL
+	# ssl_certificate _;
+	# ssl_certificate_key _;
+	# ssl_trusted_certificate _;
+    
+    # security
+	# include security.conf;
 
     location / {
-        root   /usr/share/nginx/html;
-        index  index.html index.htm;
+        root   /var/www/html;
+        # index.*
+        index index.php;
     }
+
+	# index.* fallback
+	location / {
+		try_files $uri $uri/ =404;
+	}
 
     #error_page  404              /404.html;
 
@@ -19,26 +35,9 @@ server {
         root   /usr/share/nginx/html;
     }
 
-    # proxy the PHP scripts to Apache listening on 127.0.0.1:80
-    #
-    #location ~ \.php$ {
-    #    proxy_pass   http://127.0.0.1;
-    #}
-
-    # pass the PHP scripts to FastCGI server listening on 127.0.0.1:9000
-    #
-    #location ~ \.php$ {
-    #    root           html;
-    #    fastcgi_pass   127.0.0.1:9000;
-    #    fastcgi_index  index.php;
-    #    fastcgi_param  SCRIPT_FILENAME  /scripts$fastcgi_script_name;
-    #    include        fastcgi_params;
-    #}
-
-    # deny access to .htaccess files, if Apache's document root
-    # concurs with nginx's one
-    #
-    #location ~ /\.ht {
-    #    deny  all;
-    #}
+    # handle .php
+    location ~ \.php$ {
+        include snippets/fastcgi-php.conf
+        fastcgi_pass unix:/run/php/php7.3-fpm.sock
+    }
 }
