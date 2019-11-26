@@ -7,16 +7,16 @@ server {
     
     server_name _;
     
-	# SSL
-	# ssl_certificate _;
-	# ssl_certificate_key _;
-	# ssl_trusted_certificate _;
+    # SSL
+    # ssl_certificate _;
+    # ssl_certificate_key _;
+    # ssl_trusted_certificate _;
     
     # security
     # include security.conf;
 
     location / {
-        root   /var/www/html;
+        root /var/www/html;
         # index.*
         index index.php;
     }
