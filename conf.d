@@ -3,7 +3,7 @@ server {
     listen [::]:80;
     
     # listen 443 ssl http2;
-	# listen [::]:443 ssl http2;
+    # listen [::]:443 ssl http2;
     
     server_name _;
     
@@ -13,7 +13,7 @@ server {
 	# ssl_trusted_certificate _;
     
     # security
-	# include security.conf;
+    # include security.conf;
 
     location / {
         root   /var/www/html;
