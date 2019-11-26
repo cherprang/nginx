@@ -1,6 +1,6 @@
 server {
     listen 80;
-    listen [::]:80;
+    # listen [::]:80;
     
     # listen 443 ssl http2;
     # listen [::]:443 ssl http2;
@@ -16,15 +16,14 @@ server {
     # include security.conf;
 
     location / {
-        root /var/www/html;
-        # index.*
-        index index.php;
+        root /usr/share/nginx/html;
+        index index.php index.html index.htm;
     }
 
-	# index.* fallback
-	location / {
-		try_files $uri $uri/ =404;
-	}
+    # index.* fallback
+    location / {
+	try_files $uri $uri/ =404;
+    }
 	
     # handle .php
     location ~ \.php$ {
